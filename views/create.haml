@@ -1,0 +1,12 @@
+%h2 New Baste
+%form{:method => "post"}
+  %fieldset
+    %ul
+      %li
+        %label{:for => "title"} Title:
+        %input{:type => "text", :name => "title", :class => "text"}
+      %li
+        %label{:for => "body"} Baste:
+        %textarea{:name => "body"}
+      %li
+        %input{:type => "submit", :value => "Send", :class => "button"}

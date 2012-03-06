@@ -1,0 +1,7 @@
+%h3 Bastes
+%ul
+- @posts.each do |p|
+  %li
+    %a{ :href => "/show/#{p.id}" } 
+      = p.title
+
