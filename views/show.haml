@@ -1,7 +1,17 @@
 %h1= @baste.title
 = @baste.body
 
-%table{:id => "table_id"}
+:javascript
+  $(document).ready(function() {
+    $('#datatable').dataTable( {
+      "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+      "bProcessing": true,
+      "bServerSide": true,
+      "sAjaxSource": "/exec/123",
+    } );
+  } );
+
+%table{:id => "datatable"}
   %thead
     %tr
       %th Col 1
