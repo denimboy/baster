@@ -9,7 +9,7 @@ DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, 'sqlite:///tmp/baseter.db')
 #DataMapper.setup(:default, 'postgres://localhost/the_database_name')
 
-class Post
+class Baste
   include DataMapper::Resource
   property :id,         Serial
   property :title,      String
@@ -21,7 +21,7 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 get '/' do
-  @posts = Post.all(:order => [ :created_at.desc ])
+  @bastes = Baste.all(:order => [ :created_at.desc ])
   haml :index
 end
 
@@ -30,16 +30,16 @@ get '/new' do
 end
 
 post '/new' do
-  @post = Post.create(
+  @baste = Baste.create(
     :title      => params[:title],
     :body       => params[:body],
     :created_at => Time.now
   )
-  @post.save
+  @baste.save
   redirect '/'
 end
 
-get '/show/:post' do |id|
-  @post = Post.get(id)
+get '/show/:baste' do |id|
+  @baste = Baste.get(id)
   haml :show
 end
