@@ -1,26 +1,17 @@
-%h1= @baste.title
-= @baste.body
-
 :javascript
   $(document).ready(function() {
-    $('#datatable').dataTable( {
-      "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-      "bProcessing": true,
-      "bServerSide": true,
-      "sAjaxSource": "/exec/123",
-    } );
+    $('#datatable').dataTable();
   } );
 
-%table{:id => "datatable"}
+%h1= @baste.title
+= @baste.body
+%table{:id => "datatable", :class => 'table'}
   %thead
     %tr
-      %th Col 1
-      %th Col 2
-      %th Col 3
+      - @cols.each do |col|
+        %th= col.to_str
   %tbody
-    %tr
-      %td Row 1
-      %td Row 2
-      %td Row 3
-
-=@rows
+    - @rows.each do |row|
+      %tr
+        - row.values.each do |val|     
+          %td= val

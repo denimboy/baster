@@ -4,11 +4,15 @@ require 'rubygems'
 require 'data_mapper'
 require 'haml'
 require 'sinatra'
+require "sinatra/config_file"
+
+config_file 'config.yml'
 
 DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, 'sqlite:///tmp/baseter.db')
 
 # external is our target database
+#DataMapper.setup(:external, settings.external)
 DataMapper.setup(:external, 'sqlite:///tmp/baseter.db')
 
 class Baste
@@ -47,7 +51,9 @@ get '/show/:baste' do |id|
   begin
     @rows = repository(:external).adapter.select(@baste.body) # returns list of structs
   rescue
-    @rows = [{'message' => 'An error occured'}]
+    Error = Struct.new(:message)
+    @rows = [ Error.new('An error occured') ]
   end
+  @cols = @rows[0].members
   haml :show
 end
