@@ -50,9 +50,9 @@ get '/show/:baste' do |id|
   @rows = []
   begin
     @rows = repository(:external).adapter.select(@baste.body) # returns list of structs
-  rescue
+  rescue => e
     Error = Struct.new(:message)
-    @rows = [ Error.new('An error occured') ]
+    @rows = [ Error.new(e.message) ]
   end
   @cols = @rows[0].members
   haml :show
