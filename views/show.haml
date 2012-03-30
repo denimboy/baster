@@ -4,14 +4,15 @@
   } );
 
 %h1= @baste.title
-= @baste.body
-%table{:id => "datatable", :class => 'table'}
-  %thead
-    %tr
-      - @cols.each do |col|
-        %th= col.to_str
-  %tbody
-    - @rows.each do |row|
+%div.hero-unit
+  =@baste.body
+  %table{:id => "datatable", :class => 'table'}
+    %thead
       %tr
-        - row.values.each do |val|     
-          %td= val
+        - @cols.each do |col|
+          %th= col.to_str
+    %tbody
+      - @rows.each do |row|
+        %tr
+          - row.values.each do |val|     
+            %td= val

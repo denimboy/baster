@@ -1,7 +1,7 @@
 %h1 All Bastes
 %ul
-- @bastes.each do |p|
+- @bastes.each do |baste|
   %li
-    %a{ :href => "/show/#{p.id}" } 
-      = p.title
+    %a{ :href => "/show/#{baste.id}" } 
+      =baste.title
 
