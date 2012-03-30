@@ -7,7 +7,9 @@ require 'sinatra'
 
 DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, 'sqlite:///tmp/baseter.db')
-#DataMapper.setup(:default, 'postgres://localhost/the_database_name')
+
+# external is our target database
+DataMapper.setup(:external, 'sqlite:///tmp/baseter.db')
 
 class Baste
   include DataMapper::Resource
@@ -41,5 +43,11 @@ end
 
 get '/show/:baste' do |id|
   @baste = Baste.get(id)
+  @rows = []
+  begin
+    @rows = repository(:external).adapter.select(@baste.body) # returns list of structs
+  rescue
+    @rows = [{'message' => 'An error occured'}]
+  end
   haml :show
 end
