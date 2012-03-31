@@ -1,6 +1,9 @@
 %h1= @baste.title
-%div.hero-unit
-  =@baste.body
+
+%div
+  %pre{:class => "prettyprint lang-sql"}
+    =@baste.body
+
 %table{:id => "datatable", :class => "table table-striped table-bordered"}
   %thead
     %tr
@@ -14,7 +17,5 @@
 
 :javascript
   $(document).ready(function() {
-    $('#datatable').dataTable( {
-        "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>"
-    } );
+    prettyPrint();
   } );
